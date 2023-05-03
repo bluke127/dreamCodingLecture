@@ -1,3 +1,14 @@
-export default function Home() {
-  return <section className="bg-gray-500">Main</section>;
+import Image from "next/image";
+import Hero from "../component/Hero";
+import FeaturedPosts from "@/component/FeaturedPosts";
+import Carousel from "@/component/Carousel";
+export default function HomePage() {
+  return (
+    <>
+      {/* @ts-expect-error Async Server Component */}
+      <Hero></Hero>;<FeaturedPosts></FeaturedPosts>
+      {/* @ts-expect-error Async Server Component */}
+      <Carousel></Carousel>
+    </>
+  );
 }
