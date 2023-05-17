@@ -5,8 +5,8 @@ import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFounds from "@pages/NotFounds";
 import TestIndex from "@pages/TestPages/TestIndex";
-import TestPage1 from "./pages/TestPages/TestPage1";
-import TestPage2 from "./pages/TestPages/TestPage2";
+import TestPage1 from "@pages/TestPages/TestPage1";
+import TestPage2 from "@pages/TestPages/TestPage2";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     errorElement: <NotFounds />,
     children: [
       {
-        index: true,
+        // index: true,
         element: <TestIndex />,
       },
       {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         element: <TestPage1 />,
       },
       {
-        index: true,
+        // index: true,
         element: <TestPage2 />,
       },
     ],
