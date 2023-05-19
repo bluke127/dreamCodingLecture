@@ -17,6 +17,7 @@ export default function TestPage1() {
     <div>
       {JSON.stringify(list)}
       {isLoading + "?"}??????????????
+      <TestIndex />
     </div>
   );
 }

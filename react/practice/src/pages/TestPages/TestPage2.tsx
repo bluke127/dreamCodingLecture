@@ -1,5 +1,10 @@
 import React from "react";
+import TestIndex from "./TestIndex";
 
 export default function TestPage2() {
-  return <div>TestPage2</div>;
+  return (
+    <div>
+      <TestIndex />
+    </div>
+  );
 }

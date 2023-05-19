@@ -1,9 +1,11 @@
-import SearchHeader from "@pages/Components/SearchHeader";
+import SearchHeader from "@components/SearchHeader";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { createContext, useContext, Suspense } from "react";
+import { AuthContextProvider } from "@contexts/AuthContext";
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import Navbar from "@components/Navbar";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -14,9 +16,12 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <Suspense fallback={<div>로딩중이에요!!!!</div>}>
-      <SearchHeader></SearchHeader>
       <QueryClientProvider client={queryClient}>
-        <Outlet></Outlet>
+        <AuthContextProvider>
+          <SearchHeader></SearchHeader>
+          <Navbar />
+          <Outlet></Outlet>
+        </AuthContextProvider>
       </QueryClientProvider>
     </Suspense>
   );
