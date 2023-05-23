@@ -6,7 +6,7 @@ import {
   deleteDataApi,
 } from "@services/TestPage1API";
 import TestIndex from "@pages/TestPages/TestIndex";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 export default function TestPage1() {
   const {
     isLoading,
