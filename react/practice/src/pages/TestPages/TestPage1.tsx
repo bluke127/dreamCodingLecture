@@ -13,6 +13,7 @@ export default function TestPage1() {
     error,
     data: list,
   } = useQuery(["testList"], () => getDataApi());
+  const client = useQueryClient();
   return (
     <div>
       {JSON.stringify(list)}

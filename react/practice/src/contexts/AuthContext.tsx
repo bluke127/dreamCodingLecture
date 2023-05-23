@@ -4,6 +4,8 @@ const AuthContext = createContext(null);
 
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState({ name: "", password: "" });
+  type obj = { Am: { Label: string; visible: boolean }; holiday: string };
+  let a: obj[] = [];
 
   useEffect(() => {
     // onUserStateChange((user) => setUser(user));
