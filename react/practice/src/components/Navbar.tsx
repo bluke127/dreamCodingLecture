@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "@contexts/AuthContext";
+import Input from "./Input";
 export default function Navbar() {
   const { state: Cuser, action } = useAuthContext();
   const [user, setuser] = useState({ name: "", password: "" });
@@ -33,7 +34,7 @@ export default function Navbar() {
       {JSON.stringify(Cuser)}
       <Link to="/test1">test1</Link>
       <Link to="/test2">test2</Link>
-      <input
+      <Input
         type="text"
         value={user.name}
         onChange={onNameChange}
