@@ -1,0 +1,14 @@
+@import "@/styles/utils.scss"; /*변수파일 import*/
+@include mobile {
+  input {
+    width: 100%;
+    background-color: $blue;
+  }
+}
+
+@include desktop {
+  input {
+    width: 100%;
+    background-color: $green;
+  }
+}

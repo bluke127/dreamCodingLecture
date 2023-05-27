@@ -18,6 +18,7 @@ export default function TestPage1() {
     <div>
       {JSON.stringify(list)}
       {isLoading + "?"}??????????????
+      <div className="test">testPage1</div>
       <TestIndex />
     </div>
   );
