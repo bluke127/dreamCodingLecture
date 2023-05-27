@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Input from "./Input";
 import "@/styles/components/StatusInput.scss";
+import { UseUtilsContext } from "@contexts/UtilsContext";
 export default function StatusInput(props) {
-  const { value, onChange, style, type, placeholder, ClearValue, label } =
-    props;
+  const {
+    state: { target },
+    action: Aaction,
+  } = UseUtilsContext();
+  const InputRef = useRef();
+  const { value, onChange, style, type, placeholder, onClear, label } = props;
+  useEffect(() => {
+    console.log(target, "targettargettarget");
+  }, [target]);
   return (
     <div className="status_input_wrap">
       <Input
@@ -13,10 +21,13 @@ export default function StatusInput(props) {
         style={style}
         type={type}
         placeholder={placeholder}
+        ref={InputRef}
       />
-      <span className="clear_value" onClick={props.ClearValue}>
-        <AiFillCloseCircle />
-      </span>
+      {target === InputRef?.current && (
+        <span className="clear_value" onClick={props.onClear}>
+          <AiFillCloseCircle />
+        </span>
+      )}
     </div>
   );
 }
