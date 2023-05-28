@@ -13,6 +13,7 @@ type propsType = {
   type?: string;
   placeholder?: string;
   label?: string;
+  className?: string;
 };
 const Input = forwardRef(
   (props: propsType, ref: RefObject<HTMLInputElement>) => {
@@ -24,6 +25,7 @@ const Input = forwardRef(
       type = "text",
       placeholder,
       label,
+      className,
     } = props;
     return (
       <span className="input_wrap">
@@ -36,6 +38,7 @@ const Input = forwardRef(
           type={type}
           placeholder={placeholder}
           ref={ref}
+          className={className}
         />
       </span>
     );

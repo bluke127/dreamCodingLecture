@@ -50,6 +50,7 @@ export default function Navbar() {
         value={user.password}
         onChange={onPasswordChange}
         style={{ color: "black" }}
+        validation={/^[0-9]+$/}
         onClear={(e) =>
           setuser((u) => {
             return { ...u, password: "" };

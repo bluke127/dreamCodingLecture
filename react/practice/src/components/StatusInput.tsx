@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Input from "./Input";
 import "@/styles/components/StatusInput.scss";
@@ -9,10 +9,25 @@ export default function StatusInput(props) {
     action: Aaction,
   } = UseUtilsContext();
   const InputRef = useRef();
-  const { value, onChange, style, type, placeholder, onClear, label } = props;
+  const {
+    value = "",
+    onChange,
+    style,
+    type,
+    placeholder,
+    validation,
+    onClear,
+    label,
+  } = props;
+
+  const passValidation = useMemo(() => {
+    return validation?.test(value);
+  }, [value]);
+
   useEffect(() => {
     console.log(target, "targettargettarget");
   }, [target]);
+
   return (
     <div className="status_input_wrap">
       <Input
@@ -22,6 +37,7 @@ export default function StatusInput(props) {
         type={type}
         placeholder={placeholder}
         ref={InputRef}
+        className={passValidation ? "success" : "fail"}
       />
       {target === InputRef?.current && (
         <span className="clear_value" onClick={props.onClear}>
