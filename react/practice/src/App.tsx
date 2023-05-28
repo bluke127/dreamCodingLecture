@@ -1,12 +1,13 @@
-import SearchHeader from "@components/SearchHeader";
-import { useId, useState } from "react";
 import { Suspense } from "react";
 import { AuthContextProvider } from "@contexts/AuthContext";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Layout from "@components/Layout/Layout";
 import "@/styles/App.scss";
-import UtilsContextProvider, { UseUtilsContext } from "@contexts/UtilsContext";
+import UtilsContextProvider from "@contexts/UtilsContext";
+import PopupPortal from "@components/Popup/PopupPortal";
+import { PopupContextProvider } from "@contexts/PopupContext";
+import Popup from "@components/Popup/Popup";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -15,15 +16,20 @@ const queryClient = new QueryClient({
   },
 });
 function App() {
-  const id = useId();
   return (
     <Suspense fallback={<div>로딩중이에요!!!!</div>}>
       <QueryClientProvider client={queryClient}>
         <AuthContextProvider>
           <UtilsContextProvider>
-            <Layout></Layout>
+            <PopupContextProvider>
+              <Layout></Layout>
+              <PopupPortal>
+                <Popup></Popup>
+              </PopupPortal>
+            </PopupContextProvider>
           </UtilsContextProvider>
         </AuthContextProvider>
+
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </Suspense>
