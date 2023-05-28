@@ -1,0 +1,12 @@
+@import "@/styles/_utils.scss";
+.modal_wrap {
+  background-color: rgba(0, 0, 0, 0.137);
+}
+.modal_inner_wrap {
+  background-color: white;
+}
+.btn_list_wrap {
+  button {
+    background-color: red;
+  }
+}
