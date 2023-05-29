@@ -7,11 +7,11 @@
 //   importation: any;
 //   etc?: string | undefined;
 // };
-export type unknownObj = {
+export type UnknownObj = {
   [key: string]: any;
 };
 
-export type modalStateType = {
+export type ModalPopupStateType = {
   type: string;
   content: string;
   btnList: { word: string; func: Event }[];

@@ -1,4 +1,4 @@
-import type { unknownObj } from "@/types/types";
+import type { UnknownObj } from "@/types/types";
 import axios from "axios";
 
 const baseApiUrl = process.env.REACT_APP_API_BASE_URL;
@@ -50,7 +50,7 @@ const api = {
     query,
   }: {
     url: string;
-    query: any[] | unknownObj | undefined;
+    query: any[] | UnknownObj | undefined;
   }) => {
     const params = query;
     return instance.post(url, params);
@@ -60,7 +60,7 @@ const api = {
     query,
   }: {
     url: string;
-    query: any[] | unknownObj | undefined;
+    query: any[] | UnknownObj | undefined;
   }) => {
     const params = query;
     return instance.delete(url, {
@@ -72,7 +72,7 @@ const api = {
     query,
   }: {
     url: string;
-    query: any[] | unknownObj | undefined;
+    query: any[] | UnknownObj | undefined;
   }) => {
     const params = query;
     return instance.put(url, params);

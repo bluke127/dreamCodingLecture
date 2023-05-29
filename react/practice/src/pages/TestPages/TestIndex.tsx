@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { AuthContextProvider } from "@contexts/AuthContext";
-import { UsePopupContext } from "@contexts/PopupContext";
+import { AuthContextProvider } from "@/contexts/AuthContext";
+import { UseModalPopupContext } from "@/contexts/ModalPopupContext";
 import styles from "@/styles/pages/TestIndex.module.scss";
+import { ModalPortal } from "@/components/ModalPopup/ModalPopupPortal";
 export default function TestIndex() {
-  const { state, action } = UsePopupContext();
+  const { state, action } = UseModalPopupContext();
   // return <div>TestIndex</div>;
   useEffect(() => {
     console.log(state);
@@ -41,6 +42,8 @@ export default function TestIndex() {
 
         <div className={styles.test}>TestIndex</div>
         <button onClick={setButton}>버튼</button>
+        <ModalPortal>ㄴ아아아아</ModalPortal>
+        <ModalPortal>sfsfssdsdds</ModalPortal>
       </AuthContextProvider>
     </>
   );
