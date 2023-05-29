@@ -1,14 +1,26 @@
-import { UsePopupContext } from "@contexts/PopupContext";
+import { UseModalPopupContext } from "@/contexts/ModalPopupContext";
 import React, { useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
-import styles from "@/styles/components/Popup/Popup.module.scss";
+import styles from "@/styles/components/ModalPopup/Popup.module.scss";
 import { AiOutlineClose } from "react-icons/ai";
 
 export default function Popup() {
-  const { state, action } = UsePopupContext();
+  const { state, action } = UseModalPopupContext();
   useEffect(() => {
     console.log(state, action, "?");
   }, [state]);
+
+  useEffect(() => {
+    if (!state.isOpen)
+      action((e) => {
+        return {
+          type: "알림",
+          content: "",
+          btnList: [],
+          isOpen: state.isOpen,
+        };
+      });
+  }, [state.isOpen]);
   const onClose = useCallback(
     () =>
       action((e) => {

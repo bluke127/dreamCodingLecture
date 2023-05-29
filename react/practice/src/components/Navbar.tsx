@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "@contexts/AuthContext";
-import Input from "./Input";
+import { useAuthContext } from "@/contexts/AuthContext";
+import Input from "@/components/Input/Input";
+import StatusInput from "@/components/Input/StatusInput";
 import { UseUtilsContext } from "@contexts/UtilsContext";
-import StatusInput from "./StatusInput";
 export default function Navbar() {
   const { state: Cuser, action } = useAuthContext();
   const { state: util, action: Aaction } = UseUtilsContext();

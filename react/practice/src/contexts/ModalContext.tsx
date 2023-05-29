@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { modalStateType } from "@/types/types";
+import { createContext, useContext, useState } from "react";
+import { ModalPopupStateType } from "@/types/types";
 const PopupContext = createContext(null);
 export function PopupContextProvider({ children }) {
-  const [popupInfo, setPopupInfo] = useState<modalStateType>({
+  const [popupInfo, setPopupInfo] = useState<ModalPopupStateType>({
     type: "알림",
     isOpen: false,
     content: "",
@@ -14,6 +14,6 @@ export function PopupContextProvider({ children }) {
     </PopupContext.Provider>
   );
 }
-export function UsePopupContext() {
+export function UseModalPopupContext() {
   return useContext(PopupContext);
 }
