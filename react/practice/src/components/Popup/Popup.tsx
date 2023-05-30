@@ -5,25 +5,23 @@ import styles from "@/styles/components/ModalPopup/Popup.module.scss";
 import { AiOutlineClose } from "react-icons/ai";
 
 export default function Popup() {
-  const { state, action } = UseModalPopupContext();
-  useEffect(() => {
-    console.log(state, action, "?");
-  }, [state]);
+  const { popupState, popupAction } = UseModalPopupContext();
+  useEffect(() => {}, [popupState]);
 
   useEffect(() => {
-    if (!state.isOpen)
-      action((e) => {
+    if (!popupState.isOpen)
+      popupAction((e) => {
         return {
           type: "알림",
           content: "",
           btnList: [],
-          isOpen: state.isOpen,
+          isOpen: popupState.isOpen,
         };
       });
-  }, [state.isOpen]);
+  }, [popupState.isOpen]);
   const onClose = useCallback(
     () =>
-      action((e) => {
+      popupAction((e) => {
         return { ...e, isOpen: false };
       }),
     []
@@ -31,18 +29,18 @@ export default function Popup() {
 
   return (
     <>
-      {state.isOpen ? (
+      {popupState.isOpen ? (
         <div className={styles.popup_wrap}>
           <div className={styles.popup_inner_wrap}>
             <div className={styles.type_wrap}>
-              <div className={styles.type}>{state.type}</div>
+              <div className={styles.type}>{popupState.type}</div>
               <p onClick={onClose}>
                 <AiOutlineClose />
               </p>
             </div>
-            <div className={styles.content_wrap}>{state.content}</div>
+            <div className={styles.content_wrap}>{popupState.content}</div>
             <div className={styles.btn_list_wrap}>
-              {state.btnList?.map((item, idx) => (
+              {popupState.btnList?.map((item, idx) => (
                 <button onClick={item.func} key={idx}>
                   {item.word}
                 </button>

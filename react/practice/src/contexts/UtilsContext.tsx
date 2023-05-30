@@ -13,8 +13,8 @@ export default function UtilsContextProvider({ children }) {
   // });
   return (
     <>
-      {/* 시발{JSON.stringify(target)} */}
       <UtilsContext.Provider
+        // @ts-ignore
         value={{ state: { target }, action: { setTarget } }}
       >
         {children}

@@ -1,0 +1,70 @@
+import { UseModalPopupContext } from "@/contexts/ModalPopupContext";
+import React, {
+  useEffect,
+  useCallback,
+  Children,
+  useMemo,
+  useState,
+} from "react";
+import ReactDOM from "react-dom";
+import styles from "@/styles/components/ModalPopup/Modal.module.scss";
+import { AiOutlineClose } from "react-icons/ai";
+
+export default function Modal(props) {
+  const { id, children } = props;
+  const { modalState, modalAction } = UseModalPopupContext();
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    console.log(modalState, modalState[id], modalAction, id, "!!!");
+    setVisible((e) => modalState[id]["visible"]);
+  }, [modalState]);
+  useEffect(() => {
+    console.log(modalState, modalState[id], modalAction, id, "@@@");
+    setVisible((e) => modalState[id]["visible"]);
+  }, [visible]);
+  // const visible = useMemo(() => {
+  //   console.log(modalState, modalState[id], modalAction, id, "!!!");
+  //   return modalState && modalState[id] ? modalState[id]["visible"] : false;
+  // }, [modalState]);
+  // useEffect(() => {
+  //   if (!modalState.id?.visible)
+  //     modalAction((e) => {
+  //       return {
+  //         type: "알림",
+  //         content: "",
+  //         btnList: [],
+  //         isOpen: modalState.isOpen,
+  //       };
+  //     });
+  // }, [modalState.isOpen]);
+  const onClose = useCallback(
+    () =>
+      modalAction((e) => {
+        e[id].visible = false;
+        return { ...e };
+      }),
+    []
+  );
+
+  return (
+    <>
+      {visible ? (
+        <div
+          // key={id}
+          className={styles.modal_wrap}
+          style={{ display: visible ? "block" : "none" }}
+        >
+          <div className={styles.modal_inner_wrap}>
+            <div className={styles.type_wrap}>
+              {/* <div className={styles.type}>{modalState.type}</div> */}
+              <p onClick={onClose}>
+                <AiOutlineClose />
+              </p>
+            </div>
+            <div className={styles.content_wrap}>{children}</div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}

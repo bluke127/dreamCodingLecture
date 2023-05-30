@@ -2,16 +2,19 @@ import React, { useEffect } from "react";
 import { AuthContextProvider } from "@/contexts/AuthContext";
 import { UseModalPopupContext } from "@/contexts/ModalPopupContext";
 import styles from "@/styles/pages/TestIndex.module.scss";
-import { ModalPortal } from "@/components/ModalPopup/ModalPopupPortal";
+import ModalPortal from "@/components/Modal/ModalPortal";
+import Modal from "@/components/Modal/Modal";
+import useModal from "@/hooks/useModal";
 export default function TestIndex() {
-  const { state, action } = UseModalPopupContext();
+  const { popupState, popupAction } = UseModalPopupContext();
+  const { id, showModal, closeModal } = useModal();
   // return <div>TestIndex</div>;
   useEffect(() => {
-    console.log(state);
+    console.log(popupState);
   }, []);
   const setButton = () => {
     alert();
-    action((e) => {
+    popupAction((e) => {
       return {
         ...e,
         isOpen: true,
@@ -26,7 +29,7 @@ export default function TestIndex() {
           {
             word: "취소",
             func: () => {
-              action((e) => {
+              popupAction((e) => {
                 return { ...e, isOpen: false };
               });
             },
@@ -35,6 +38,9 @@ export default function TestIndex() {
       };
     });
   };
+  const setModalButton = () => {
+    showModal();
+  };
   return (
     <>
       <AuthContextProvider>
@@ -42,7 +48,10 @@ export default function TestIndex() {
 
         <div className={styles.test}>TestIndex</div>
         <button onClick={setButton}>버튼</button>
-        <ModalPortal>ㄴ아아아아</ModalPortal>
+        <button onClick={setModalButton}>모달버튼</button>
+        <ModalPortal>
+          <Modal id={id}>아아아</Modal>
+        </ModalPortal>
         <ModalPortal>sfsfssdsdds</ModalPortal>
       </AuthContextProvider>
     </>
