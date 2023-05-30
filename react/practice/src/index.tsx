@@ -7,7 +7,7 @@ import NotFounds from "@/pages/NotFounds";
 import TestIndex from "@/pages/TestPages/TestIndex";
 import TestPage1 from "@/pages/TestPages/TestPage1";
 import TestPage2 from "@/pages/TestPages/TestPage2";
-import ProtectedRoute from "@components/ProtectedRoute";
+import ProtectedRoute from "@/components/ProtectedRoute";
 const router = createBrowserRouter([
   {
     path: "/",

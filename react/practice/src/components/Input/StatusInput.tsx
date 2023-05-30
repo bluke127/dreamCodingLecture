@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Input from "./Input";
 import "@/styles/components/Input/StatusInput.scss";
-import { UseUtilsContext } from "@contexts/UtilsContext";
+import { UseUtilsContext } from "@/contexts/UtilsContext";
 export default function StatusInput(props) {
   const {
     state: { target },
