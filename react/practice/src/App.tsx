@@ -1,14 +1,13 @@
 import { Suspense } from "react";
-import { AuthContextProvider } from "@contexts/AuthContext";
+import { AuthContextProvider } from "@/contexts/AuthContext";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Layout from "@components/Layout/Layout";
+import Layout from "@/components/Layout/Layout";
 import "@/styles/App.scss";
-import UtilsContextProvider from "@contexts/UtilsContext";
-import { PopupPortal } from "@/components/ModalPopup/ModalPopupPortal";
-import { PopupContextProvider } from "@/contexts/ModalPopupContext";
-import Popup from "@/components/ModalPopup/Popup";
-import Modal from "@/components/ModalPopup/Modal";
+import UtilsContextProvider from "@/contexts/UtilsContext";
+import { PopupPortal } from "@/components/Popup/PopupPortal";
+import { ModalPopupContextProvider } from "@/contexts/ModalPopupContext";
+import Popup from "@/components/Popup/Popup";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -24,13 +23,12 @@ function App() {
         <AuthContextProvider>
           {/* 현재 클릭한 target 세팅하는 context */}
           <UtilsContextProvider>
-            <PopupContextProvider>
+            <ModalPopupContextProvider>
               <Layout></Layout>
               <PopupPortal>
                 <Popup></Popup>
-                <Modal></Modal>
               </PopupPortal>
-            </PopupContextProvider>
+            </ModalPopupContextProvider>
           </UtilsContextProvider>
         </AuthContextProvider>
 
