@@ -15,17 +15,17 @@ const router = createBrowserRouter([
     errorElement: <NotFounds />,
     children: [
       {
-        index: true,
+        // index: true,
         element: <TestIndex />,
       },
       {
-        // index: true,
-        path: "test1",
+        index: true,
+        // path: "/",
         element: (
-          <ProtectedRoute>
-            <TestPage1 />,
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <TestPage1 />
         ),
+        // </ProtectedRoute>
       },
       {
         // index: true,
