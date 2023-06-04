@@ -9,7 +9,7 @@ type propsType = {
   value: string;
   id?: string;
   onChange: ChangeEventHandler;
-  style: any;
+  style?: any;
   type?: string;
   placeholder?: string;
   label?: string;

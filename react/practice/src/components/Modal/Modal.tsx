@@ -22,21 +22,6 @@ export default function Modal(props) {
     console.log(modalState, modalState[id], modalAction, id, "@@@");
     setVisible((e) => modalState[id]["visible"]);
   }, [visible]);
-  // const visible = useMemo(() => {
-  //   console.log(modalState, modalState[id], modalAction, id, "!!!");
-  //   return modalState && modalState[id] ? modalState[id]["visible"] : false;
-  // }, [modalState]);
-  // useEffect(() => {
-  //   if (!modalState.id?.visible)
-  //     modalAction((e) => {
-  //       return {
-  //         type: "알림",
-  //         content: "",
-  //         btnList: [],
-  //         isOpen: modalState.isOpen,
-  //       };
-  //     });
-  // }, [modalState.isOpen]);
   const onClose = useCallback(
     () =>
       modalAction((e) => {
@@ -52,7 +37,6 @@ export default function Modal(props) {
         <div
           // key={id}
           className={styles.modal_wrap}
-          style={{ display: visible ? "block" : "none" }}
         >
           <div className={styles.modal_inner_wrap}>
             <div className={styles.type_wrap}>
