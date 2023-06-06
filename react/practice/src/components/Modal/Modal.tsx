@@ -15,11 +15,9 @@ export default function Modal(props) {
   const { modalState, modalAction } = UseModalPopupContext();
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    console.log(modalState, modalState[id], modalAction, id, "!!!");
     setVisible((e) => modalState[id]["visible"]);
   }, [modalState]);
   useEffect(() => {
-    console.log(modalState, modalState[id], modalAction, id, "@@@");
     setVisible((e) => modalState[id]["visible"]);
   }, [visible]);
   const onClose = useCallback(

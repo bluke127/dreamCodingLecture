@@ -24,10 +24,6 @@ export default function StatusInput(props) {
     return validation?.test(value);
   }, [value]);
 
-  useEffect(() => {
-    console.log(target, "targettargettarget");
-  }, [target]);
-
   return (
     <div className="status_input_wrap">
       <Input

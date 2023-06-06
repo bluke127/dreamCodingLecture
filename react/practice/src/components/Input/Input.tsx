@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import "@/styles/components/Input/Input.scss";
 type propsType = {
-  value: string;
+  value: string | boolean | number;
   id?: string;
   onChange: ChangeEventHandler;
   style?: any;
@@ -19,7 +19,7 @@ const Input = forwardRef(
   (props: propsType, ref: RefObject<HTMLInputElement>) => {
     const {
       value = "",
-      id,
+      id = "",
       onChange,
       style,
       type = "text",
@@ -32,6 +32,7 @@ const Input = forwardRef(
         {props.label && <label htmlFor={id}>{label}</label>}
         <input
           id={id}
+          // @ts-ignore
           value={value}
           onChange={onChange}
           style={style}
