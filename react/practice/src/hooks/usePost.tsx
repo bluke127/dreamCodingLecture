@@ -1,37 +1,37 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { UseMutateContext } from "@/contexts/MutateContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
-
-import {
-  getDataApi,
-  createDataApi,
-  updateDataApi,
-  deleteDataApi,
-} from "@/services/TestPage1API";
-export default function usePost(key) {
+export default function usePost({
+  url,
+  queryKey,
+  queryFn,
+  query,
+}: {
+  url?: string;
+  queryKey: string[];
+  queryFn: Function;
+  query?: any;
+}) {
   const queryClient = useQueryClient();
+  const { state, action } = UseMutateContext();
 
-  const createData = useMutation(
-    async (data: any) => {
-      await createDataApi(data);
+  const mutate = useMutation(
+    async (query: any) => {
+      action.action((e) => {
+        e.isLoading = true;
+        return { ...e };
+      });
+      await queryFn(query);
     },
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries([key]);
+        action.action((e) => {
+          e.isLoading = false;
+          return { ...e };
+        });
+        await queryClient.invalidateQueries(queryKey);
       },
     }
   );
-  const updateData = useMutation(
-    async (data: any) => {
-      await updateDataApi(data);
-
-      await queryClient.invalidateQueries([key]);
-    },
-    {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries([key]);
-      },
-    }
-  );
-
-  return { createData, updateData };
+  return { mutate };
 }
