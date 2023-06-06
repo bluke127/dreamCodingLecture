@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   getDataApi,
   createDataApi,
@@ -10,7 +16,10 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import Input from "@/components/Input/Input";
 import styled from "@/styles/pages/TestIndex.module.scss";
 import usePost from "@/hooks/usePost";
+import useGet from "@/hooks/useGet";
 export default function TestPage1() {
+  const queryClient = useQueryClient();
+
   const {
     isLoading,
     error,
@@ -19,68 +28,110 @@ export default function TestPage1() {
     isLoading: boolean;
     error: any;
     data: { data: any[] };
-  } = useQuery(["testList"], () => getDataApi(), { staleTime: 60 * 1000 });
-  const { createData, updateData } = usePost("testList");
+  } = useQuery(["testList"], () => getDataApi(), {
+    staleTime: 60 * 1000,
+  });
+  useGet({ queryKey: ["testList"], queryFn: getDataApi });
+  useEffect(() => setDataList((v) => [...list]), [list]);
+  const { mutate: createData } = usePost({
+    queryKey: ["testList", "create"],
+    queryFn: createDataApi,
+  });
+  const { mutate: updateData } = usePost({
+    queryKey: ["testList", "update"],
+    queryFn: updateDataApi,
+  });
+  const { mutate: deleteData } = usePost({
+    queryKey: ["testList", "update"],
+    queryFn: deleteDataApi,
+  });
   const [dataList, setDataList] = useState(list);
-  const client = useQueryClient();
+
   const unshiftList = () => {
     setDataList((value) => {
-      value.unshift({ index: "new", title: "", content: "" });
-      return [...value];
+      let _value = [...value];
+      _value.unshift({ index: "new", title: "", content: "" });
+      return [..._value];
     });
   };
-  const onChangeValue = (e: ChangeEvent<Element>, idx, cate) => {
-    setDataList((value) => {
-      value[idx][cate] = (e.target as HTMLInputElement).value;
-      return [...value];
-    });
+  const onChangeValue = (cate, e: ChangeEvent<Element>, row, idx) => {
+    if (cate === "deleteChoice") {
+      setDataList((value) => {
+        value[idx][cate] = (e.target as HTMLInputElement).checked;
+        return [...value];
+      });
+      return;
+    } else {
+      setDataList((value) => {
+        row[cate] = (e.target as HTMLInputElement).value;
+        return [...value];
+      });
+    }
   };
   const saveData = async () => {
     await createData.mutate(dataList.filter((item) => item.index == "new"));
+    await deleteData.mutate(
+      dataList.filter((item) => item.index != "new" && item.deleteChoice)
+    );
     await updateData.mutate(dataList.filter((item) => item.index != "new"));
-    // await client.invalidateQueries(["testList"]);
+    await queryClient.invalidateQueries(["testList"]);
   };
   return (
     <>
-      {createData.isLoading || updateData.isLoading ? (
-        <div>d</div>
-      ) : (
-        <div>
-          {JSON.stringify(list)}
-          {JSON.stringify(list)}
-          {JSON.stringify(isLoading) + "?"}??????????????
-          <div className="test">testPage1</div>
-          <button onClick={unshiftList}>추가</button>
-          <button onClick={saveData}>저장</button>
-          <table style={{ backgroundColor: "blue" }}>
+      <div>
+        {JSON.stringify(list)}
+        <br />
+        <br />
+        <div className="test">testPage1</div>
+        <button onClick={unshiftList}>추가</button>
+        <button onClick={saveData}>저장</button>
+        <br />
+        <br />
+        <br />
+        <table style={{ backgroundColor: "blue" }}>
+          <thead>
             <tr>
               <th>제목</th>
               <th>내용</th>
             </tr>
-            {dataList.length ? (
-              dataList.map((item, idx) => (
-                <tr className={item.index === "new" ? styled.create_row : ""}>
-                  <td>
-                    <Input
-                      value={item.title}
-                      onChange={(e) => onChangeValue(e, idx, "title")}
-                    />
-                  </td>
-                  <td>
-                    <Input
-                      value={item.content}
-                      onChange={(e) => onChangeValue(e, idx, "content")}
-                    />
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <td></td>
-            )}
-          </table>
-          <TestIndex />
-        </div>
-      )}
+          </thead>
+          <tbody>
+            {dataList.map((item, idx) => (
+              <tr
+                className={item.index === "new" ? styled.create_row : ""}
+                key={idx}
+              >
+                <td>
+                  <Input
+                    id={`deleteChoice_${idx}`}
+                    type="checkbox"
+                    value={item.deleteChoice}
+                    onChange={(e) =>
+                      onChangeValue("deleteChoice", e, item, idx)
+                    }
+                  />
+                </td>
+                <td>
+                  <Input
+                    id={`title_${idx}`}
+                    value={item.title}
+                    onChange={(e) => onChangeValue("title", e, item, idx)}
+                  />
+                </td>
+                <td>
+                  <Input
+                    id={`content_${idx}`}
+                    value={item.content}
+                    onChange={(e) => onChangeValue("content", e, item, idx)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+        <TestIndex />
+      </div>
     </>
   );
 }
