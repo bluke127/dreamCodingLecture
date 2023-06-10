@@ -23,7 +23,7 @@ export function updateDataApi(data) {
 }
 export function deleteDataApi(data) {
   const url = `/TestListDelete_data`;
-  return api.delete({
+  return api.post({
     url,
     query: data,
   });
