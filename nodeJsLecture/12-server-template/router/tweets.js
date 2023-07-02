@@ -1,6 +1,6 @@
 import express from "express";
 import "express-async-errors";
-import * as tweetRepository from "../data/tweet.js";
+import * as tweetController from "../controller/tweet.js";
 const router = express.Router();
 let tweets = [
   {
@@ -8,49 +8,18 @@ let tweets = [
     text: "드림코더분들 화이팅",
     name: "Bob",
     username: "bob",
-    url: "https://widgetwhats.com/app/uploads/2019/11/free-profile-photo-whatsapp-1.png",
+    // url: "https://widgetwhats.com/app/uploads/2019/11/free-profile-photo-whatsapp-1.png",
   },
 ];
 //GET /tweets
-router.get("/", (req, res, next) => {
-  const username = req.query.username;
-  const data = username
-    ? tweetRepository.getAllByUsername(username)
-    : tweetRepository.getAll(username);
-  res.status(200).json(data);
-});
+router.get("/", tweetController.getTweets);
 //GET /tweets?username:username
 //GET /tweets/:id
-router.get("/:id", (req, res, next) => {
-  const id = req.params.id;
-  const tweet = tweetRepository.getAllByUsername(id);
-  if (tweet) {
-    res.status(200).json(tweet);
-  } else {
-    res.status(404).json({ message: `Tweet id(${id}) not found` });
-  }
-});
+router.get("/:id", tweetController.getTweet);
 //POST /tweets
-router.post("/", (req, res, next) => {
-  const { text, name, username } = req.body;
-  const tweet = tweetRepository.create(text, name, username);
-  res.status(200).json(tweets);
-});
+router.post("/", tweetController.createTweet);
 //PUT /tweets/:id
-router.put("/:id", (req, res, next) => {
-  const id = req.params.id;
-  const text = req.body.text;
-  const tweet = tweetRepository.update(id, text);
-  if (tweet) {
-    res.status(200).json(tweet);
-  } else {
-    res.status(404).json({ message: `Tweet id(${id}) not found` });
-  }
-});
+router.put("/:id", tweetController.updateTweet);
 //DELETE /tweets/:id
-router.delete("/:id", (req, res, next) => {
-  const id = req.params.id;
-  tweetRepository.remove(id);
-  res.sendStatus(201);
-});
+router.delete("/:id", tweetController.deleteTweet);
 export default router;

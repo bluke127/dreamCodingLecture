@@ -25,13 +25,14 @@ export function create(text, name, username) {
     username,
   };
   tweets = [tweet, ...tweets];
+  return tweet;
 }
 export function update(id, text) {
   const tweet = tweets.find((t) => t.id === id);
   if (tweet) {
     tweet.text = text;
   }
-  return text;
+  return tweet;
 }
 
 export function remove(id) {
