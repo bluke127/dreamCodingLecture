@@ -1,6 +1,6 @@
-"use client";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+'use client';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -25,7 +25,7 @@ type Props = {
 };
 export default function MultiCarousel({ children }: Props) {
   return (
-    <Carousel infinite autoPlay responsive={responsive} itemClass="m-2">
+    <Carousel infinite autoPlay responsive={responsive} itemClass='m-2'>
       {children}
     </Carousel>
   );

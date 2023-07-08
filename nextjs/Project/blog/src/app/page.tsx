@@ -1,14 +1,15 @@
-import Image from "next/image";
-import Hero from "../component/Hero";
-import FeaturedPosts from "@/component/FeaturedPosts";
-import Carousel from "@/component/Carousel";
+import CarouselPosts from '@/components/CarouselPosts';
+import FeaturedPosts from '@/components/FeaturedPosts';
+import Hero from '@/components/Hero';
+
 export default function HomePage() {
   return (
     <>
-      {/* @ts-expect-error Async Server Component */}
-      <Hero></Hero>;<FeaturedPosts></FeaturedPosts>
-      {/* @ts-expect-error Async Server Component */}
-      <Carousel></Carousel>
+      <Hero />
+      {/* @ts-expect-error Server Component */}
+      <FeaturedPosts />
+      {/* @ts-expect-error Server Component */}
+      <CarouselPosts />
     </>
   );
 }
