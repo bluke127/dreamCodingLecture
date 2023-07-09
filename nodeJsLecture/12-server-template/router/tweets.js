@@ -1,33 +1,34 @@
-import express from "express";
-import "express-async-errors";
-import * as tweetController from "../controller/tweet.js";
-import { validate } from "../middleware/validator.js";
-import { body } from "express-validator";
+import express from 'express';
+import 'express-async-errors';
+import { body } from 'express-validator';
+import * as tweetController from '../controller/tweet.js';
+import { isAuth } from '../middleware/auth.js';
+import { validate } from '../middleware/validator.js';
+
 const router = express.Router();
+
 const validateTweet = [
-  body("text")
+  body('text')
     .trim()
     .isLength({ min: 3 })
-    .withMessage("text should be at least 3 characters"),
+    .withMessage('text should be at least 3 characters'),
+  validate,
 ];
-let tweets = [
-  {
-    id: "1",
-    text: "드림코더분들 화이팅",
-    name: "Bob",
-    username: "bob",
-    // url: "https://widgetwhats.com/app/uploads/2019/11/free-profile-photo-whatsapp-1.png",
-  },
-];
-//GET /tweets
-router.get("/", tweetController.getTweets);
-//GET /tweets?username:username
-//GET /tweets/:id
-router.get("/:id", tweetController.getTweet);
-//POST /tweets
-router.post("/", [validateTweet, validate], tweetController.createTweet);
-//PUT /tweets/:id
-router.put("/:id", [validateTweet, validate], tweetController.updateTweet);
-//DELETE /tweets/:id
-router.delete("/:id", tweetController.deleteTweet);
+
+// GET /tweet
+// GET /tweets?username=:username
+router.get('/', isAuth, tweetController.getTweets);
+
+// GET /tweets/:id
+router.get('/:id', isAuth, tweetController.getTweet);
+
+// POST /tweeets
+router.post('/', isAuth, validateTweet, tweetController.createTweet);
+
+// PUT /tweets/:id
+router.put('/:id', isAuth, validateTweet, tweetController.updateTweet);
+
+// DELETE /tweets/:id
+router.delete('/:id', isAuth, tweetController.deleteTweet);
+
 export default router;
