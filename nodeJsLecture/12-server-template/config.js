@@ -15,4 +15,10 @@ export const config = {
   bcrypt: {
     saltRounds: Number(required("BCRYRT_SALT_ROUNDS", 12)),
   },
+  db: {
+    host: required("localhost"),
+    user: required("root"),
+    database: required("dwitter"),
+    password: required("1234"),
+  },
 };
