@@ -1,5 +1,9 @@
+'use client'
+import AuthContext from "@/context/AuthContext";
+import Navbar from "./components/Navbar";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
+import { useEffect } from "react";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -13,9 +17,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  useEffect(()=>{
+
+    console.log(process.env)
+  },[])
   return (
     <html lang="en" className={openSans.className}>
-      <body>{children}</body>
+      <body className="w-full max-w-screen-xl overflow-auto mx-auto">
+        <AuthContext>
+          <header className="sticky top-0 bg-white z-10 border-b">
+            <Navbar />
+          </header>
+          <main>{children}</main>
+        </AuthContext>
+      </body>
     </html>
   );
 }
