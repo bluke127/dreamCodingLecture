@@ -11,6 +11,7 @@ import NewIcon from "./ui/icons/NewIcon";
 import NewFillIcon from "./ui/icons/NewFillIcon";
 import { usePathname } from "next/navigation";
 import ColorButton from "./ui/ColorButton";
+import Avartar from "./Avartar";
 const menu = [
   {
     href: "/",
@@ -31,6 +32,7 @@ const menu = [
 function Navbar() {
   const pathName = usePathname();
   const { data: session } = useSession();
+  const user = session?.user;
   return (
     <div className="flex justify-between items-center px-6">
       <Link href="/">
@@ -45,6 +47,13 @@ function Navbar() {
               </Link>
             </li>
           ))}
+          {user && (
+            <li>
+              <Link href={`/user/${user.username}`}>
+                <Avartar image={user.image}></Avartar>
+              </Link>
+            </li>
+          )}
           {session ? (
             <ColorButton text="Sign out" onClick={() => signOut()} />
           ) : (
