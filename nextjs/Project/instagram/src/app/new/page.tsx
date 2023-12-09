@@ -1,7 +1,3 @@
-import React from 'react'
-
 export default function NewPostPage() {
-  return (
-    <div>New Post Page</div>
-  )
+  return <p>New Post Page</p>;
 }
