@@ -1,0 +1,1 @@
+self.__RSC_CSS_MANIFEST={"__entry_css__":{"D:\\드림코딩\\next13_fastcamps\\app\\posts\\page":[],"D:\\드림코딩\\next13_fastcamps\\app\\posts\\[id]\\page":[]}}
