@@ -1,4 +1,4 @@
-import { User } from '@/model/user';
+ import { User } from '@/model/user';
 import Avatar from './Avatar';
 
 type Props = {
@@ -8,9 +8,9 @@ export default function SideBar({ user: { name, username, image } }: Props) {
   return (
     <>
       <div className='flex items-center'>
-        {image && <Avatar image={image} />}
+        {image && <Avatar image={image} ></Avatar>}
         <div className='ml-4'>
-          <p className='font-bold'>{username}</p>
+          <p className='font-bold'>{username}fffff</p>
           <p className='text-lg text-neutral-500 leading-4'>{name}</p>
         </div>
       </div>
